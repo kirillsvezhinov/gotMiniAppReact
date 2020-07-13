@@ -2,11 +2,13 @@ import React,{Component} from 'react';
 import {Col, Row, Container, Button} from 'reactstrap';
 import Header from '../header';
 import RandomChar from '../randomChar';
-import CharacterPage from '../characterPage'
+import CharacterPage from '../pages/characterPage'
+
+import HousesPage from '../pages/housesPage'
 import ErrorMessage from '../errorMessage'
-import ItemList from '../itemList';
-import CharDetails from '../charDetails';
 import GotService from '../../services/service';
+import {BrowserRouter as Router, Route } from 'react-router-dom';
+
 import './app.css'
 
 
@@ -25,7 +27,6 @@ export default class App extends Component {
         });
     }
     componentDidCatch(){
-        console.log('error sorry)')
         this.setState({
             error:true
         })
@@ -53,28 +54,8 @@ export default class App extends Component {
                         </Col>
                     </Row>
                    <CharacterPage/>
-                    <Row>
-                    <Col md='6'>
-                        <ItemList 
-                        getData = {this.GotService.getAllHouses}
-                        onItemSelected={this.onItemSelected}
-                        renderItem ={(item) => item.name} />
-                    </Col>
-                    <Col md='6'>
-                        <CharDetails charId= {this.state.selectedChar}/>
-                    </Col>
-                    </Row>
-                <Row>
-                    <Col md='6'>
-                        <ItemList 
-                        getData = {this.GotService.getAllBooks}
-                        onItemSelected={this.onItemSelected}
-                        renderItem ={(item) => item.name} />
-                    </Col>
-                    <Col md='6'>
-                        <CharDetails charId= {this.state.selectedChar}/>
-                    </Col>
-                </Row>
+                  
+                    <HousesPage/>
                 </Container>
             </>
         );
