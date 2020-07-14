@@ -3,7 +3,7 @@ import {Col, Row, Container, Button} from 'reactstrap';
 import Header from '../header';
 import RandomChar from '../randomChar';
 import CharacterPage from '../pages/characterPage'
-
+import BooksPage,{BooksItem} from '../pages/booksPage'
 import HousesPage from '../pages/housesPage'
 import ErrorMessage from '../errorMessage'
 import GotService from '../../services/service';
@@ -40,7 +40,8 @@ export default class App extends Component {
             return <ErrorMessage/>
         }
         return (
-            <> 
+           <Router>
+                <div className="app"> 
                 <Container>
                     <Header />
                 </Container>
@@ -53,11 +54,19 @@ export default class App extends Component {
                                 onClick={this.toggleRandomChar}>Toggle random character</Button>
                         </Col>
                     </Row>
-                   <CharacterPage/>
-                  
-                    <HousesPage/>
+                    <Route path='/characters' component={CharacterPage} />
+                    
+                    <Route path='/houses' component={HousesPage} />
+                    <Route path='/books' exact component={BooksPage} />
+                    <Route path='/book:id' render={
+                        ({match}) => {
+                            const {id} = match.params
+                        return <BooksItem bookId={id}/>
+                        }
+                    } />
                 </Container>
-            </>
+            </div>
+           </Router>
         );
     }
 };

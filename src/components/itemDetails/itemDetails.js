@@ -51,7 +51,6 @@ export default class ItemDetails extends Component {
         this.setState({
             loading: true
         })
-
         getData(itemId)
         .then(this.onItemDetailsLoaded)
         .catch( () => this.onError())
